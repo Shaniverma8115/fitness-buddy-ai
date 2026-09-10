@@ -1,16 +1,19 @@
 """
 Workout generation tools using IBM Granite via watsonx.ai
 """
+import os
 import requests
-import json
 from typing import Optional
 from pydantic import BaseModel, Field
 from ibm_watsonx_orchestrate.agent_builder.tools import tool, ToolPermission
 
-WATSONX_URL = "https://us-south.ml.cloud.ibm.com/ml/v1/text/generation?version=2023-05-29"
-MODEL_ID = "ibm/granite-4-h-small"
-PROJECT_ID = "76edf6b0-8919-446e-93dc-43e0b6a7e481"
-API_KEY = "0WeqfqiHKVKp-CFVrBD2NKSL49yJ99OvFxp85sPf9IRB"
+WATSONX_URL = os.environ.get(
+    "IBM_WATSONX_URL",
+    "https://us-south.ml.cloud.ibm.com/ml/v1/text/generation?version=2023-05-29",
+)
+MODEL_ID  = os.environ.get("IBM_MODEL_ID",   "ibm/granite-4-h-small")
+PROJECT_ID = os.environ.get("IBM_PROJECT_ID", "")
+API_KEY    = os.environ.get("IBM_API_KEY",    "")
 
 
 def _get_iam_token() -> str:
